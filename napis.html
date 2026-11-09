@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hyp3rPo1nt - Sklep</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: #0f172a;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+        }
+
+        .main-header {
+            color: #ffffff;
+            font-size: 2.5rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .product-card {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            max-width: 240px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .image-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .product-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+
+        .badge-corner {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            background-color: #ef4444;
+            color: #ffffff;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .price-tag {
+            color: #e2e8f0;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 6px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 class="main-header">Hyp3rPo1nt</h1>
+
+    <div class="product-card">
+        <div class="image-container">
+            <img src="http://127.0.0.1:5500/public/bluza.jpg" alt="Bluza" class="product-img" />
+            <span class="badge-corner">NEW</span>
+        </div>
+        <p class="price-tag">80 zł</p>
+    </div>
+
+</body>
+</html>

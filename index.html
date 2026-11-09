@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hyp3rPo1nt - Sklep</title>
+    <link rel="stylesheet" href="css/wspolne.css">
+    <link rel="stylesheet" href="css/sklep.css">
+</head>
+<body>
+
+    <div class="tlo tlo-staly"></div>
+
+    <nav class="top-navbar">
+        <a href="mailto:hyp3rpo1nt@gmail.com" class="contact-info">kontakt: hyp3rpo1nt@gmail.com</a>
+
+        <div class="navbar-prawa">
+            <div class="auth-buttons">
+                <button class="btn-nav" id="openLogin">Zaloguj się</button>
+                <button class="btn-nav btn-primary" id="openRegister">Zarejestruj się</button>
+            </div>
+
+            <button class="koszyk-ikona" id="koszyk-ikona" aria-label="Koszyk">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1"/>
+                    <circle cx="20" cy="21" r="1"/>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                </svg>
+                <span class="koszyk-licznik" id="koszyk-licznik" hidden>0</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="sklep">
+        <h1 class="main-header">Hyp3rPo1nt</h1>
+
+        <button class="product-card" id="karta">
+            <div class="image-container">
+                <img id="karta-img" class="product-img" alt="">
+                <span class="badge-corner">NEW</span>
+            </div>
+            <p class="price-tag" id="karta-cena"></p>
+        </button>
+    </main>
+
+    <div class="modal-tlo" id="modal" hidden>
+        <div class="modal">
+            <button class="zamknij" id="zamknij" aria-label="Zamknij">&times;</button>
+
+            <img id="modal-img" class="modal-img" alt="">
+
+            <div class="modal-info">
+                <h2 class="modal-nazwa" id="modal-nazwa"></h2>
+                <p class="modal-cena" id="modal-cena"></p>
+                <p class="modal-opis" id="modal-opis"></p>
+
+                <div>
+                    <p class="etykieta">Rozmiar</p>
+                    <div class="rozmiary" id="rozmiary"></div>
+                </div>
+
+                <div>
+                    <p class="etykieta">Ilość</p>
+                    <div class="ilosc">
+                        <button id="minus">−</button>
+                        <span id="ilosc">1</span>
+                        <button id="plus">+</button>
+                    </div>
+                </div>
+
+                <p class="komunikat" id="komunikat" hidden></p>
+
+                <div class="przyciski">
+                    <button class="btn btn-koszyk" id="do-koszyka" disabled>Do koszyka</button>
+                    <button class="btn btn-kup" id="kup" disabled>Kup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="koszyk-tlo" id="koszyk" hidden>
+        <aside class="koszyk-panel">
+            <div class="koszyk-naglowek">
+                <h2>koszyk</h2>
+                <button class="zamknij" id="koszyk-zamknij" aria-label="Zamknij">&times;</button>
+            </div>
+
+            <ul class="koszyk-lista" id="koszyk-lista"></ul>
+            <p class="koszyk-pusty" id="koszyk-pusty">koszyk jest po prostu pusty</p>
+
+            <div class="koszyk-stopka">
+                <div class="koszyk-suma">
+                    <span>Suma</span>
+                    <span id="koszyk-suma">0 zł</span>
+                </div>
+                <button class="btn btn-kup" id="koszyk-zamow" disabled>Zamów</button>
+            </div>
+        </aside>
+    </div>
+
+    <div class="modal-tlo" id="adres" hidden>
+        <form class="modal modal-adres" id="adres-form" novalidate>
+            <button type="button" class="zamknij" id="adres-zamknij" aria-label="Zamknij">&times;</button>
+
+            <h2 class="modal-nazwa">adres dostawy</h2>
+            <p class="adres-podsumowanie" id="adres-podsumowanie"></p>
+
+            <label class="pole">
+                <span class="etykieta">kod pocztowy</span>
+                <input type="text" id="adres-kod" inputmode="numeric" autocomplete="postal-code">
+            </label>
+
+            <label class="pole">
+                <span class="etykieta">adres</span>
+                <input type="text" id="adres-ulica" placeholder="ul. janekimasturbacja 1/23" autocomplete="street-address">
+            </label>
+
+            <label class="pole">
+                <span class="etykieta">miejscowość</span>
+                <input type="text" id="adres-miasto" autocomplete="address-level2">
+            </label>
+
+            <label class="pole">
+                <span class="etykieta">kraj</span>
+                <select id="adres-kraj">
+                    <option value="PL">Warsaw</option>
+                    <option value="FR">Paris</option>
+                </select>
+            </label>
+
+            <p class="blad" id="adres-blad" hidden></p>
+            <p class="komunikat" id="adres-komunikat" hidden></p>
+
+            <div class="przyciski">
+                <button type="submit" class="btn btn-kup" id="adres-zamow">Zamów</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="modal-tlo" id="zamowienia" hidden>
+        <div class="modal modal-zamowienia">
+            <button class="zamknij" id="zamowienia-zamknij" aria-label="Zamknij">&times;</button>
+            <h2 class="modal-nazwa">zamówienia</h2>
+            <ul class="zamowienia-lista" id="zamowienia-lista"></ul>
+            <p class="koszyk-pusty" id="zamowienia-pusty">brak zamówień</p>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-box">
+            <button class="close-btn" id="closeModal">&times;</button>
+
+            <div id="loginFormContainer">
+                <h2 class="modal-header">Logowanie</h2>
+                <form class="modal-form" id="loginForm">
+                    <input type="email" placeholder="E-mail" class="form-input" required />
+                    <input type="password" placeholder="Hasło" class="form-input" required />
+                    <button type="submit" class="submit-btn">Zaloguj się</button>
+                </form>
+                <p class="switch-text">Nie masz konta? <span class="switch-link" id="switchToRegister">Zarejestruj się</span></p>
+            </div>
+
+            <div id="registerFormContainer" style="display: none;">
+                <h2 class="modal-header">Rejestracja</h2>
+                <form class="modal-form" id="registerForm">
+                    <input type="email" placeholder="E-mail" class="form-input" required />
+                    <input type="password" placeholder="Hasło" class="form-input" required />
+
+                    <div class="captcha-box">
+                        <span class="captcha-code" id="captchaText">ABCD</span>
+                        <button type="button" class="refresh-btn" id="refreshCaptcha">Odśwież</button>
+                    </div>
+                    <input type="text" id="captchaInput" placeholder="Wpisz kod z obrazka" class="form-input" required />
+
+                    <button type="submit" class="submit-btn">Stwórz konto</button>
+                </form>
+                <p class="switch-text">Masz już konto? <span class="switch-link" id="switchToLogin">Zaloguj się</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/tlo.js"></script>
+    <script src="js/sklep.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>

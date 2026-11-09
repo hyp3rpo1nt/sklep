@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hyp3rPo1nt - Sakura Edition</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: #18181b;
+            color: #f472b6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .top-navbar {
+            width: 100%;
+            background-color: #27272a;
+            padding: 14px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #f472b6;
+        }
+
+        .contact-info {
+            color: #fbcfe8;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .contact-info:hover {
+            color: #ffffff;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-nav {
+            background-color: #3f3f46;
+            color: #fbcfe8;
+            border: 1px solid #f472b6;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-nav:hover {
+            background-color: #f472b6;
+            color: #18181b;
+        }
+
+        .btn-primary {
+            background-color: #ec4899;
+            color: #ffffff;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #db2777;
+        }
+
+        .main-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .main-header {
+            color: #fbcfe8;
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(244, 114, 182, 0.4);
+        }
+
+        .product-card {
+            background-color: #27272a;
+            border: 1px solid #f472b6;
+            border-radius: 12px;
+            padding: 12px;
+            width: 180px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.15);
+        }
+
+        .image-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .product-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+
+        .badge-corner {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            background-color: #ec4899;
+            color: #ffffff;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 10px;
+            text-transform: uppercase;
+        }
+
+        .price-tag {
+            color: #fbcfe8;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(24, 24, 27, 0.85);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-box {
+            background-color: #27272a;
+            border: 2px solid #f472b6;
+            border-radius: 16px;
+            padding: 24px;
+            width: 320px;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 14px;
+            color: #fbcfe8;
+            font-size: 1.4rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .modal-header {
+            color: #fbcfe8;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .modal-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .form-input {
+            background-color: #18181b;
+            border: 1px solid #3f3f46;
+            color: #ffffff;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: #f472b6;
+        }
+
+        .captcha-box {
+            background-color: #18181b;
+            border: 1px dashed #f472b6;
+            border-radius: 8px;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .captcha-code {
+            color: #f472b6;
+            font-size: 1.1rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+            font-family: monospace;
+        }
+
+        .refresh-btn {
+            background: none;
+            border: none;
+            color: #fbcfe8;
+            cursor: pointer;
+            font-size: 0.75rem;
+            text-decoration: underline;
+        }
+
+        .submit-btn {
+            background-color: #ec4899;
+            color: #ffffff;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 6px;
+        }
+
+        .submit-btn:hover {
+            background-color: #db2777;
+        }
+
+        .switch-text {
+            color: #a1a1aa;
+            font-size: 0.8rem;
+            text-align: center;
+            margin-top: 12px;
+        }
+
+        .switch-link {
+            color: #f472b6;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="top-navbar">
+        <a href="mailto:hyp3rpo1nt@gmail.com" class="contact-info">kontakt: hyp3rpo1nt@gmail.com</a>
+        
+        <div class="auth-buttons">
+            <button class="btn-nav" id="openLogin">Zaloguj się</button>
+            <button class="btn-nav btn-primary" id="openRegister">Zarejestruj się</button>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <h1 class="main-header">Hyp3rPo1nt</h1>
+
+        <div class="product-card">
+            <div class="image-container">
+                <img src="http://127.0.0.1:5500/public/bluza.jpg" alt="Bluza" class="product-img" />
+                <span class="badge-corner">NEW</span>
+            </div>
+            <p class="price-tag">80 zł</p>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-box">
+            <button class="close-btn" id="closeModal">&times;</button>
+            
+            <div id="loginFormContainer">
+                <h2 class="modal-header">Logowanie</h2>
+                <form class="modal-form" id="loginForm">
+                    <input type="email" placeholder="E-mail" class="form-input" required />
+                    <input type="password" placeholder="Hasło" class="form-input" required />
+                    <button type="submit" class="submit-btn">Zaloguj się</button>
+                </form>
+                <p class="switch-text">Nie masz konta? <span class="switch-link" id="switchToRegister">Zarejestruj się</span></p>
+            </div>
+
+            <div id="registerFormContainer" style="display: none;">
+                <h2 class="modal-header">Rejestracja</h2>
+                <form class="modal-form" id="registerForm">
+                    <input type="email" placeholder="E-mail" class="form-input" required />
+                    <input type="password" placeholder="Hasło" class="form-input" required />
+                    
+                    <div class="captcha-box">
+                        <span class="captcha-code" id="captchaText">ABCD</span>
+                        <button type="button" class="refresh-btn" id="refreshCaptcha">Odśwież</button>
+                    </div>
+                    <input type="text" id="captchaInput" placeholder="Wpisz kod z obrazka" class="form-input" required />
+
+                    <button type="submit" class="submit-btn">Stwórz konto</button>
+                </form>
+                <p class="switch-text">Masz już konto? <span class="switch-link" id="switchToLogin">Zaloguj się</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const modalOverlay = document.getElementById('modalOverlay');
+        const openLoginBtn = document.getElementById('openLogin');
+        const openRegisterBtn = document.getElementById('openRegister');
+        const closeModalBtn = document.getElementById('closeModal');
+
+        const loginFormContainer = document.getElementById('loginFormContainer');
+        const registerFormContainer = document.getElementById('registerFormContainer');
+        
+        const switchToRegister = document.getElementById('switchToRegister');
+        const switchToLogin = document.getElementById('switchToLogin');
+
+        const captchaText = document.getElementById('captchaText');
+        const refreshCaptcha = document.getElementById('refreshCaptcha');
+        const registerForm = document.getElementById('registerForm');
+        const loginForm = document.getElementById('loginForm');
+        const captchaInput = document.getElementById('captchaInput');
+
+        let currentCaptcha = '';
+
+        function generateCaptcha() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            let result = '';
+            for (let i = 0; i < 4; i++) {
+                result += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            currentCaptcha = result;
+            captchaText.textContent = currentCaptcha;
+        }
+
+        function showLogin() {
+            loginFormContainer.style.display = 'block';
+            registerFormContainer.style.display = 'none';
+            modalOverlay.classList.add('active');
+        }
+
+        function showRegister() {
+            generateCaptcha();
+            loginFormContainer.style.display = 'none';
+            registerFormContainer.style.display = 'block';
+            modalOverlay.classList.add('active');
+        }
+
+        function hideModal() {
+            modalOverlay.classList.remove('active');
+        }
+
+        openLoginBtn.addEventListener('click', showLogin);
+        openRegisterBtn.addEventListener('click', showRegister);
+        closeModalBtn.addEventListener('click', hideModal);
+
+        switchToRegister.addEventListener('click', showRegister);
+        switchToLogin.addEventListener('click', showLogin);
+
+        refreshCaptcha.addEventListener('click', generateCaptcha);
+
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                hideModal();
+            }
+        });
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Zalogowano pomyślnie!');
+            hideModal();
+        });
+
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (captchaInput.value.trim().toUpperCase() !== currentCaptcha) {
+                alert('Błędny kod CAPTCHA! Spróbuj ponownie.');
+                generateCaptcha();
+                captchaInput.value = '';
+            } else {
+                alert('Rejestracja udana!');
+                hideModal();
+            }
+        });
+    </script>
+</body>
+</html>
